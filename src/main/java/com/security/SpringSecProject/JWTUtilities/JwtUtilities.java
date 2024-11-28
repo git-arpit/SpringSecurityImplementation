@@ -1,6 +1,7 @@
 package com.security.SpringSecProject.JWTUtilities;
 
 
+import com.security.SpringSecProject.Models.UserModel;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -10,15 +11,21 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtilities {
 
-    private String SECRETKEY= "newSecretKeyNewSecretKeynewSecretKeysecretKeyNew";
-    public String generateToken(String username) {
-         return Jwts.builder()
-                .subject(username)
-                .header().add("typ","JWT")
+    private String SECRETKEY = "newSecretKeyNewSecretKeynewSecretKeysecretKeyNew";
+
+    public String generateToken(UserModel user) {
+        Map<String, String> claims = new HashMap<>();
+        claims.put("eid", Integer.toString(user.getId()));
+        return Jwts.builder()
+                .subject(user.getUsername())
+                .claims(claims)
+                .header().add("typ", "JWT")
                 .and()
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .signWith(getSigningKey())
@@ -43,15 +50,23 @@ public class JwtUtilities {
                 .build().parseSignedClaims(token)
                 .getPayload().getSubject();
     }
+    public String getIdFromJwtToken(String token) {
+        return Jwts.parser()
+                .verifyWith((SecretKey) getSigningKey())
+                .build().parseSignedClaims(token)
+                .getPayload().get("eid", String.class);
+    }
+
 
     public boolean validateToken(String jwt) {
         try {
+            System.out.println("Inside Validate JWT");
             Jwts.parser().verifyWith((SecretKey) getSigningKey()).build().parseSignedClaims(jwt);
             return true;
         } catch (JwtException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return false;
     }

@@ -48,4 +48,8 @@ public class UserModel implements UserDetails {
     public String getUsername() {
         return email;
     }
+
+    public int getId() {
+        return id;
+    }
 }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDate;
+
 @Entity
 public class ReimbursementModel {
     @Id
@@ -151,6 +153,7 @@ public class ReimbursementModel {
         this.productName = p.getProductName();
         this.productProvider = p.getProductProvider();
         this.amount = p.getAmount();
+        this.submissionDate = LocalDate.now().toString();
     }
 
 

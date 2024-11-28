@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class SpringSecProjectApplication implements CommandLineRunner{
@@ -15,6 +16,8 @@ public class SpringSecProjectApplication implements CommandLineRunner{
     RoleRepo roleRepo;
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringSecProjectApplication.class, args);
@@ -28,8 +31,8 @@ public class SpringSecProjectApplication implements CommandLineRunner{
         roleRepo.save(roleEmp);
        roleRepo.save(roleSup);
 
-        userRepo.save(new UserModel("employee1","employee1@dummy.com", "emp123",roleEmp));
-       userRepo.save(new UserModel("supervisor1","supervisor1@dummy.com", "supp234",roleSup));
-       userRepo.save(new UserModel("employee2","employee2@dummy.com", "emp234",roleEmp));
+        userRepo.save(new UserModel("employee1","employee1@dummy.com", passwordEncoder.encode("emp123"), roleEmp));
+       userRepo.save(new UserModel("supervisor1","supervisor1@dummy.com", passwordEncoder.encode("supp234"),roleSup));
+       userRepo.save(new UserModel("employee2","employee2@dummy.com", passwordEncoder.encode("emp234"),roleEmp));
     }
 }

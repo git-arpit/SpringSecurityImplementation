@@ -54,9 +54,8 @@ public class MyController {
 
     }
 
-    //@PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/reimbursement/{employeeNumber}")
-    public ResponseEntity<?> supervisor(@PathVariable String employeeNumber) {
+    public ResponseEntity<?> supervisor(@PathVariable int employeeNumber) {
         return commonService.getAllEmp(employeeNumber);
     }
 
@@ -65,11 +64,12 @@ public class MyController {
         return employeeService.addProduct(product, request);
     }
 
-    @PatchMapping("/reimbursement/update/{id}")
-    public ResponseEntity<?> updateMethod(@PathVariable int id , UpdateBean updateBean){
-        supervisorService.updateReimbursement(updateBean, LocalDate.now().toString(), id);
-
-    }
+//    @PatchMapping("/reimbursement/update/{id}")
+//    public ResponseEntity<?> updateMethod(@PathVariable int id , UpdateBean updateBean){
+//        supervisorService.updateReimbursement(updateBean, LocalDate.now().toString(), id);
+//        return null;
+//
+//    }
 
     //@PreAuthorize("hasRole('NORMAL')")
     @GetMapping("/reimbursement/1")

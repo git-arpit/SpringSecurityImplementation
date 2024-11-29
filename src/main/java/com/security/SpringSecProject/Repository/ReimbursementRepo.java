@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ReimbursementRepo extends JpaRepository<ReimbursementModel, Integer> {
 
-    Optional<List<ReimbursementModel>> findByEmpNumber(String empNo);
+    Optional<List<ReimbursementModel>> findByEmpNumber(int empNo);
 
 
 }

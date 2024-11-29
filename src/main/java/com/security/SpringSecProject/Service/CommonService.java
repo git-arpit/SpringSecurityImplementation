@@ -16,7 +16,7 @@ public class CommonService {
     @Autowired
     ReimbursementRepo repo;
 
-    public ResponseEntity<Object> getAllEmp(String employeeId){
+    public ResponseEntity<Object> getAllEmp(int employeeId){
         Optional<List<ReimbursementModel>> byEmpNumber = repo.findByEmpNumber(employeeId);
         if(byEmpNumber.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

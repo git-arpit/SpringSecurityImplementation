@@ -23,10 +23,18 @@ public class ReimbursementModel {
     private String isApproved ="pending";
     private String approvalDate;
     private String approvedRemarks;
+    private String comments;
+
    // @ManyToOne
     private int employeeId;
 
+    public String getComments() {
+        return comments;
+    }
 
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
     public int getId() {
         return id;
@@ -138,6 +146,7 @@ public class ReimbursementModel {
                 ", isApproved='" + isApproved + '\'' +
                 ", approvalDate='" + approvalDate + '\'' +
                 ", approvedRemarks='" + approvedRemarks + '\'' +
+                ", comments='" + comments + '\'' +
                 ", employeeId=" + employeeId +
                 '}';
     }
@@ -154,6 +163,7 @@ public class ReimbursementModel {
         this.productProvider = p.getProductProvider();
         this.amount = p.getAmount();
         this.submissionDate = LocalDate.now().toString();
+        this.comments = p.getComments();
     }
 
 

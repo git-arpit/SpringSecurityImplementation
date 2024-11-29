@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
+
     @Autowired
-    ReimbursementRepo reimRepo;
+    ReimbursementRepo remiRepo;
 
     @Autowired
     JwtUtilities jwtUtilities;
@@ -24,7 +25,7 @@ public class EmployeeService {
         String userId = jwtUtilities.getIdFromJwtToken(jwtUtilities.parseJwt(request));
 
         ReimbursementModel addedProduct = new ReimbursementModel(product, Integer.parseInt(userId));
-        reimRepo.save(addedProduct);
+        remiRepo.save(addedProduct);
 
         if (addedProduct != null) {
             return new ResponseEntity<>(addedProduct, HttpStatus.CREATED);

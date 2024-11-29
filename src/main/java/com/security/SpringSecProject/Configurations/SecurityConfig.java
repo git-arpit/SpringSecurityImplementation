@@ -38,7 +38,6 @@ public class SecurityConfig {
         http.csrf((csrf) -> csrf.disable());
         http.addFilterBefore(authenticationJwtTokenFilter(),
                 UsernamePasswordAuthenticationFilter.class);
-        //http.httpBasic(withDefaults());
         // To enable H2 database console UI
         http.headers((headers) -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
         System.out.println("Inside Security Filter Chain");
@@ -53,16 +52,6 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-//        UserDetails normalUser = User.withUsername("norm")
-//                .password("{noop}normPass")
-//                .roles("NORMAL")
-//                .build();
-//
-//        UserDetails adminUser = User.withUsername("admin")
-//                .password("{noop}adminPass")
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(normalUser, adminUser);
         return new CustomUserDetails();
     }
 

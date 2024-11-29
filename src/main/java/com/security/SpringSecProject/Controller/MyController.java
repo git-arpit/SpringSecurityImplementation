@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping
@@ -64,19 +63,16 @@ public class MyController {
         return employeeService.addProduct(product, request);
     }
 
-//    @PatchMapping("/reimbursement/update/{id}")
-//    public ResponseEntity<?> updateMethod(@PathVariable int id , UpdateBean updateBean){
-//        supervisorService.updateReimbursement(updateBean, LocalDate.now().toString(), id);
-//        return null;
-//
-//    }
-
-    //@PreAuthorize("hasRole('NORMAL')")
-    @GetMapping("/reimbursement/1")
-    public ResponseEntity<?> normal1() {
-        // returns JWT or
-        return new ResponseEntity<>("Inside EMPLOYEE1", HttpStatus.OK);
+    @PatchMapping("/reimbursement/update/{id}")
+    public ResponseEntity<?> updateMethod(@PathVariable int id , @RequestBody UpdateBean updateBean){
+        System.out.println(updateBean);
+        return supervisorService.updateReimbursement(updateBean, LocalDate.now().toString(), id);
     }
+
+   @DeleteMapping("/reimbursement/delete/{id}")
+    public ResponseEntity<?> deleteMethod(@PathVariable String id, HttpServletRequest request){
+        return employeeService.deleteById(id, request);
+   }
 
 
 }

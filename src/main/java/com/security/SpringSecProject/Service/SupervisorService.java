@@ -16,11 +16,17 @@ public class SupervisorService {
     @Autowired
     ReimbursementRepo reimbursementRepo;
 
-    public ResponseEntity<Object> updateReimbursement(UpdateBean updateBean, String string, int id) {
-        Optional<ReimbursementModel> byId = reimbursementRepo.findById(id);
-        if(byId.isEmpty()){
+    public ResponseEntity<?> updateReimbursement(UpdateBean updateBean, String date, int id) {
+        System.out.println("============="+ updateBean);
+        Optional<ReimbursementModel> toBeUpdated = reimbursementRepo.findById(id);
+        if(toBeUpdated.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(Optional.of(byId), HttpStatus.OK);
+        toBeUpdated.get().setIsApproved(updateBean.getIsApproved());
+        toBeUpdated.get().setApprovedRemarks(updateBean.getApprovedRemarks());
+        toBeUpdated.get().setApprovalDate(date);
+        ReimbursementModel updatedRecord = reimbursementRepo.save(toBeUpdated.get());
+
+        return new ResponseEntity<>(updatedRecord, HttpStatus.OK);
     }
 }

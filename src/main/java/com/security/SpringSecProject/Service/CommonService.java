@@ -21,7 +21,6 @@ public class CommonService {
         if(byEmpNumber.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity<>(Optional.of(byEmpNumber), HttpStatus.OK);
     }
 }
